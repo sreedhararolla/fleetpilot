@@ -17,7 +17,7 @@ Point to the title and source badge. “FleetPilot is that control loop in minia
 
 ### 0:25–0:55 — Real grid input
 
-Point to the LIVE/CACHED badge, update time, real-time price, and DAM thresholds.
+Point to the LIVE/CACHED badge, update time, real-time price, DAM thresholds, and the new full-day RT-versus-DAM chart.
 
 “This is official ERCOT `LZ_AEN` data. We compare the latest real-time price with today's day-ahead quartiles to produce a transparent charge, hold, or discharge target. If the network fails, we use a timestamped committed ERCOT snapshot and say so.”
 
