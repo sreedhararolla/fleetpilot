@@ -102,6 +102,36 @@ class TestRun(unittest.TestCase):
         self.assertGreater(hi["value"]["reserve_cost_usd_per_h"], lo["value"]["reserve_cost_usd_per_h"])
         self.assert_invariants(hi)
 
+    def test_conservation_across_seeds(self):
+        for seed in range(5):
+            for rt, drill in ((RT_HIGH, False), (RT_LOW, False), (RT_MID, True)):
+                out = run(rt, DAM, homes=300, reserve=0.3, fail=0.25, drill=drill, seed=seed)
+                d = out["dispatch"]
+                self.assertAlmostEqual(d["after_redispatch_mw"] + d["shortfall_mw"], d["target_mw"], places=2)
+                self.assert_invariants(out)
+
+    def test_charge_failure_recovers(self):
+        out = run(RT_LOW, DAM, fail=0.15)
+        d = out["dispatch"]
+        self.assertGreater(d["failed_homes"], 0)
+        self.assertAlmostEqual(d["after_redispatch_mw"], d["target_mw"], places=2)
+        self.assertEqual(d["shortfall_mw"], 0.0)
+
+    def test_reports_homes_below_requested_floor(self):
+        out = run(RT_HIGH, DAM, reserve=0.5, fail=0)
+        f = out["fleet"]
+        self.assertGreater(f["homes_below_floor"], 0)
+        self.assertGreater(f["reserve_deficit_mwh"], 0)
+        self.assertAlmostEqual(f["protected_mwh"] + f["reserve_deficit_mwh"], f["reserve_mwh"], places=2)
+        self.assertEqual(out["dispatch"]["duration_h"], 1.0)
+
+    def test_rejects_bad_inputs(self):
+        for kwargs in ({"homes": 0}, {"reserve": 1.5}, {"fail": -0.1}):
+            with self.assertRaises(ValueError):
+                run(RT_MID, DAM, **kwargs)
+        with self.assertRaises(ValueError):
+            run(RT_MID, [])
+
     def test_sample_size(self):
         out = run(RT_HIGH, DAM, homes=5000, fail=0.15)
         self.assertLessEqual(len(out["homes_sample"]), 200)

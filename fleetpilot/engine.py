@@ -75,6 +75,10 @@ def redispatch(alloc, headroom, failed):
 
 
 def run(rt, dam, homes=1000, reserve=0.2, fail=0.15, drill=False, seed=7):
+    if homes < 1 or not 0 <= reserve <= 1 or not 0 <= fail <= 1:
+        raise ValueError("homes must be >= 1; reserve and fail must be within [0, 1]")
+    if not dam:
+        raise ValueError("DAM prices are required")
     dam_prices = [p["price"] for p in dam]
     now = dict(rt[-1]) if rt else dict(dam[0])
     if drill:
@@ -141,8 +145,11 @@ def run(rt, dam, homes=1000, reserve=0.2, fail=0.15, drill=False, seed=7):
         "fleet": {"homes": homes, "online_before": homes, "online_after": homes - len(failed),
                   "power_mw": mw(sum(h.max_kw for h in fleet)),
                   "energy_mwh": mw(sum(h.soc_kwh for h in fleet)),
-                  "reserve_mwh": mw(sum(h.floor_kwh for h in fleet))},
-        "dispatch": {"target_mw": mw(target_kw), "allocated_mw": mw(sum(alloc.values())),
+                  "reserve_mwh": mw(sum(h.floor_kwh for h in fleet)),  # requested floor total
+                  "protected_mwh": mw(sum(min(h.soc_kwh, h.floor_kwh) for h in fleet)),  # actually held
+                  "homes_below_floor": sum(1 for h in fleet if h.soc_kwh < h.floor_kwh),
+                  "reserve_deficit_mwh": mw(sum(max(0.0, h.floor_kwh - h.soc_kwh) for h in fleet))},
+        "dispatch": {"target_mw": mw(target_kw), "duration_h": DURATION_H, "allocated_mw": mw(sum(alloc.values())),
                      "after_failure_mw": mw(after_fail_kw), "after_redispatch_mw": mw(delivered_kw),
                      "shortfall_mw": mw(shortfall), "failed_homes": len(failed), "boosted_homes": len(boosted)},
         "events": events,

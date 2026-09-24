@@ -24,11 +24,13 @@ disappears during an evening price spike, every MW that isn't re-dispatched is r
 ## Demo in one line
 Live ERCOT prices → scarcity drill → 1,000 homes discharge 7.5 MW → 150 go dark (−1.1 MW) → 850 pick it up →
 target met, all invariants green. Then raise the reserve to 50%: protected MWh rise, the target shrinks, and the
-**"cost of backup reserve" in $/h** grows on screen (drill: 20% reserve → 7.5 MW, $1.4k/h backup cost; 50% → 3.9 MW, $10.4k/h, still zero shortfall).
+**"cost of backup reserve" in $/h** grows on screen (drill, 1-hour dispatch block: 20% reserve → 7.5 MW, $1.4k/h gross reserve opportunity cost at the
+simulated $2,500/MWh; 50% → 3.9 MW, $10.4k/h, still zero shortfall). At 50%, the API also reports how many homes
+*start* below the requested floor (`homes_below_floor`, `reserve_deficit_mwh`). Dispatch never pushes them lower.
 
 ## Why it matters to Base
 - It is the dispatch desk's core loop, made explicit, testable and explainable to an operator.
-- It turns the backup-vs-revenue tradeoff into a number (`reserve_cost_usd_per_h`) that product and ops can reason about.
+- It turns the backup-vs-revenue tradeoff into a number (`reserve_cost_usd_per_h`, the gross opportunity cost, not settled profit) that product and ops can reason about.
 - It gives a clear path forward: plug the real telemetry in for the synthetic fleet, the real bid schedule in for the price rule, and add a real device API.
 
 ## Commercial angle
