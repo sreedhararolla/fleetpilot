@@ -39,15 +39,19 @@ Pause on the red middle card and red worker cells.
 
 “…and the coordinator reassigns the missing megawatts to healthy batteries with headroom.”
 
-Point to restored MW, boosted amber workers, event log, zero shortfall, and three green invariants.
+Point to restored MW, boosted amber workers, event log, zero shortfall, and three green invariants. At the default inputs,
+the stable drill result is approximately **7.49 → 6.36 → 7.49 MW**, with 150 failed and 850 boosted homes.
 
 “Offline homes receive zero. No home exceeds its power limit. No home crosses its backup floor. If capacity is genuinely insufficient, FleetPilot displays the shortfall instead of hiding it.”
 
 ### 2:15–2:40 — Resilience tradeoff
 
-Move backup floor to 50%, click **Run outage drill**, and point to protected MWh and any reduced available dispatch/value.
+Before changing the control, point out the 20% case: about 7.8 MWh protected and $1.4k/h shown as the cost of backup
+reserve. Move the backup floor to 50%, click **Run outage drill**, then point to about 19.4 MWh protected, a target reduced
+from roughly 7.5 to 3.9 MW, and about $10.4k/h in reserve opportunity cost.
 
-“The same operator can protect more energy for customers. That may reduce market value, but the backup promise wins. The constraint is visible and auditable.”
+“The same operator can protect more energy for customers. Here that trades away about 3.6 MW of dispatch opportunity,
+but the backup promise wins. The constraint and its dollar cost are visible and auditable.”
 
 ### 2:40–3:00 — Close
 
