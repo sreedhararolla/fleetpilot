@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FleetPilot · VPP Control Room</title>
+  <style>
+    :root{--bg:#07100f;--panel:#0c1917;--panel2:#10211e;--line:#203c36;--text:#edf8f4;--muted:#8da9a1;--mint:#48e0a4;--cyan:#5fd7ef;--amber:#ffbf5b;--red:#ff647c;--shadow:0 18px 50px #0007}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 70% -10%,#163c32 0,transparent 38%),var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;min-height:100vh}
+    button,input{font:inherit} .shell{max-width:1240px;margin:auto;padding:24px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:16px}.brand{display:flex;align-items:center;gap:12px}.mark{width:38px;height:38px;border:1px solid #56e1ae77;border-radius:11px;display:grid;place-items:center;background:#173a31;box-shadow:0 0 30px #48e0a429}.bolt{color:var(--mint);font-size:22px}.brand h1{font-size:18px;letter-spacing:.04em;margin:0}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.16em;text-transform:uppercase}.badges{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pill{border:1px solid var(--line);background:#0b1715;border-radius:99px;padding:7px 11px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}.pill.live{color:var(--mint);border-color:#48e0a466;background:#48e0a412}.pill.drill{color:var(--amber);border-color:#ffbf5b66;background:#ffbf5b12}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:7px;box-shadow:0 0 8px currentColor}
+    .hero{display:grid;grid-template-columns:1.35fr .65fr;gap:16px;margin-bottom:16px}.panel{background:linear-gradient(145deg,#0d1c19eF,#091411ef);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.decision{padding:25px;display:grid;grid-template-columns:1fr auto;gap:22px;min-height:198px}.eyebrow{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.action{font-size:53px;line-height:1;font-weight:780;letter-spacing:-.05em;margin:12px 0 8px}.action.discharge{color:var(--mint)}.action.charge{color:var(--cyan)}.action.hold{color:var(--amber)}.reason{color:#b8cec8;max-width:660px}.target{text-align:right;align-self:center}.target b{font-size:41px;line-height:1;display:block}.target span{color:var(--muted)}.thresholds{display:flex;gap:8px;margin-top:17px;flex-wrap:wrap}.chip{background:#132723;border:1px solid #26483f;border-radius:8px;padding:6px 9px;color:#acc8c0;font-variant-numeric:tabular-nums}
+    .controls{padding:22px}.controls h2,.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.13em;margin:0 0 18px;color:#c7dcd6}.field{margin:14px 0}.field label{display:flex;justify-content:space-between;color:var(--muted);margin-bottom:7px}.field strong{color:var(--text);font-variant-numeric:tabular-nums}.field input[type=number]{width:100%;background:#081310;border:1px solid var(--line);border-radius:8px;padding:10px;color:var(--text)}input[type=range]{width:100%;accent-color:var(--mint)}.buttons{display:grid;grid-template-columns:1fr 1.35fr;gap:9px;margin-top:18px}.btn{border-radius:9px;padding:11px;border:1px solid #2d4a43;background:#12241f;color:var(--text);cursor:pointer;font-weight:650}.btn:hover{border-color:#547d72}.btn.primary{background:var(--mint);color:#042017;border-color:var(--mint)}.btn:disabled{opacity:.55;cursor:wait}
+    .flow{padding:22px;margin-bottom:16px}.flow-row{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr;align-items:center;gap:7px}.flow-card{background:#091512;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;transition:.3s}.flow-card.active{border-color:var(--mint);box-shadow:inset 0 0 24px #48e0a40c}.flow-card.danger{border-color:var(--red);box-shadow:inset 0 0 24px #ff647c0d}.flow-card .num{font-size:26px;font-weight:730;font-variant-numeric:tabular-nums}.flow-card small{display:block;color:var(--muted);margin-top:4px}.arrow{text-align:center;color:#58766e;font-size:22px}.loss{color:var(--red)}.restored{color:var(--mint)}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.workers,.events{padding:22px}.worker-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:16px}.legend{display:flex;gap:12px;color:var(--muted);font-size:11px}.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;background:#31584e}.legend .f{background:var(--red)}.legend .b{background:var(--amber)}.worker-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}.worker{aspect-ratio:1;border-radius:4px;background:#285247;border:1px solid #396e60;transition:.35s;position:relative}.worker.boosted{background:#9f6d20;border-color:var(--amber);box-shadow:0 0 8px #ffbf5b44}.worker.failed{background:#682638;border-color:var(--red);opacity:.9}.worker:hover:after{content:attr(data-tip);position:absolute;z-index:3;left:50%;bottom:120%;transform:translateX(-50%);white-space:nowrap;background:#020807;border:1px solid var(--line);border-radius:5px;padding:5px 7px;color:#dcebe7;font-size:10px;pointer-events:none}.sample-note{color:var(--muted);font-size:11px;margin-top:12px}
+    .timeline{list-style:none;padding:0;margin:0}.event{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:0 0 15px;color:#647d76;opacity:.35;transition:.35s}.event.revealed{color:#c7d9d4;opacity:1}.step-dot{width:22px;height:22px;border:1px solid #38584f;border-radius:50%;display:grid;place-items:center;font-size:10px;background:#0a1714}.event.revealed .step-dot{border-color:var(--mint);color:var(--mint)}.event b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px}.event p{margin:0;font-size:12px;color:inherit}.invariants{border-top:1px solid var(--line);padding-top:13px;margin-top:3px;display:grid;gap:8px}.inv{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.check{color:var(--mint);font-weight:700}.cross{color:var(--red)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metric{padding:15px;border-radius:12px;background:#0b1815;border:1px solid var(--line)}.metric span{display:block;color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.metric b{display:block;margin-top:5px;font-size:20px;font-variant-numeric:tabular-nums}.source{margin:18px 2px 3px;color:#68827a;font-size:10px;display:flex;justify-content:space-between;gap:15px}.source a{color:#789e93;text-decoration:none}.loading:after{content:'';display:inline-block;width:12px;height:12px;border:2px solid #ffffff44;border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;margin-left:8px;vertical-align:-2px}@keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:850px){.hero,.grid{grid-template-columns:1fr}.decision{grid-template-columns:1fr}.target{text-align:left}.flow-row{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.metrics{grid-template-columns:1fr 1fr}.worker-grid{grid-template-columns:repeat(10,1fr)}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand"><div class="mark"><span class="bolt">ϟ</span></div><div><h1>FleetPilot</h1><small>VPP orchestration control room</small></div></div>
+    <div class="badges"><span class="pill" id="mode"><i class="dot"></i>Connecting</span><span class="pill">LZ_AEN · Austin</span><span class="pill" id="fresh">—</span></div>
+  </header>
+  <section class="hero">
+    <article class="panel decision">
+      <div><div class="eyebrow">Fleet instruction · current dispatch block</div><div class="action hold" id="action">—</div><div class="reason" id="reason">Loading ERCOT prices and fleet state…</div><div class="thresholds"><span class="chip" id="rt">RT —</span><span class="chip" id="p25">DAM p25 —</span><span class="chip" id="p75">DAM p75 —</span></div></div>
+      <div class="target"><b id="target">— MW</b><span>coordinated target</span></div>
+    </article>
+    <aside class="panel controls">
+      <h2>Operator constraints</h2>
+      <div class="field"><label for="homes">Fleet size <strong id="homes-out">1,000 homes</strong></label><input id="homes" type="number" min="10" max="5000" value="1000"></div>
+      <div class="field"><label for="reserve">Customer backup floor <strong id="reserve-out">20%</strong></label><input id="reserve" type="range" min="0" max="90" step="5" value="20"></div>
+      <div class="buttons"><button class="btn" id="apply">Apply</button><button class="btn primary" id="drill">Run outage drill</button></div>
+    </aside>
+  </section>
+  <section class="panel flow">
+    <div class="section-title">Dispatch recovery sequence</div>
+    <div class="flow-row">
+      <div class="flow-card active" id="card-a"><div class="num" id="allocated">—</div><small>MW allocated</small></div><div class="arrow">→</div>
+      <div class="flow-card" id="card-f"><div class="num loss" id="after-failure">—</div><small>MW after outage</small></div><div class="arrow">→</div>
+      <div class="flow-card" id="card-r"><div class="num restored" id="redispatched">—</div><small>MW after re-dispatch</small></div>
+    </div>
+  </section>
+  <section class="grid">
+    <article class="panel workers">
+      <div class="worker-head"><div><div class="section-title">Representative home workers</div></div><div class="legend"><span><i></i> online</span><span><i class="b"></i> boosted</span><span><i class="f"></i> offline</span></div></div>
+      <div class="worker-grid" id="worker-grid"></div><div class="sample-note" id="worker-note">Each cell is a sampled home battery.</div>
+    </article>
+    <aside class="panel events">
+      <div class="section-title">Coordinator event log</div><ol class="timeline" id="events"></ol><div class="invariants" id="invariants"></div>
+    </aside>
+  </section>
+  <section class="metrics">
+    <div class="metric"><span>Online after</span><b id="online">—</b></div><div class="metric"><span>Backup protected</span><b id="protected">— MWh</b></div><div class="metric"><span>Gross energy value</span><b id="value">—</b></div><div class="metric"><span>Unmet target</span><b id="shortfall">— MW</b></div>
+  </section>
+  <footer class="source"><span id="source">Official ERCOT public data · synthetic fleet telemetry</span><a href="https://www.ercot.com/gridmktinfo/dashboards" target="_blank" rel="noreferrer">ERCOT source ↗</a></footer>
+</main>
+<script>
+  const $=id=>document.getElementById(id); let timer=[];
+  const fmt=(n,d=1)=>Number(n||0).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+  $('homes').addEventListener('input',()=> $('homes-out').textContent=Number($('homes').value||0).toLocaleString()+' homes');
+  $('reserve').addEventListener('input',()=> $('reserve-out').textContent=$('reserve').value+'%');
+  $('apply').onclick=()=>load(false); $('drill').onclick=()=>load(true);
+  function busy(on){[$('apply'),$('drill')].forEach(b=>b.disabled=on); $('drill').classList.toggle('loading',on)}
+  function cards(d,stage=3){$('allocated').textContent=fmt(d.allocated_mw);$('after-failure').textContent=stage>=2?fmt(d.after_failure_mw):'—';$('redispatched').textContent=stage>=3?fmt(d.after_redispatch_mw):'—';$('card-f').classList.toggle('danger',stage===2);$('card-r').classList.toggle('active',stage>=3)}
+  function workers(rows,stage){const sample=[];const step=Math.max(1,Math.floor(rows.length/60));for(let i=0;i<rows.length&&sample.length<60;i+=step)sample.push(rows[i]);$('worker-grid').innerHTML=sample.map(h=>{let s='';if(stage>=2&&h.status==='failed')s='failed';else if(stage>=3&&h.status==='boosted')s='boosted';const kw=stage>=3?h.kw_after:h.kw_before;return `<div class="worker ${s}" data-tip="#${h.id} · ${fmt(h.soc_pct,0)}% SoC · ${fmt(kw)} kW"></div>`}).join('');$('worker-note').textContent=`${sample.length} shown of ${Number(current.fleet.homes).toLocaleString()} simulated homes · hover for constraints`}
+  function timeline(events,stage){$('events').innerHTML=events.map((e,i)=>`<li class="event ${i<stage?'revealed':''}"><span class="step-dot">${i+1}</span><div><b>${e.step}</b><p>${e.msg}</p></div></li>`).join('')}
+  function invariants(inv){const labels={no_home_below_floor:'No home below backup floor',no_home_over_power:'No home over power limit',failed_homes_zero_output:'Offline homes at zero output'};$('invariants').innerHTML=Object.entries(inv).map(([k,v])=>`<div class="inv"><span>${labels[k]||k}</span><b class="${v?'check':'cross'}">${v?'✓ PASS':'✕ FAIL'}</b></div>`).join('')}
+  let current=null;
+  function render(data,drill){current=data;timer.forEach(clearTimeout);timer=[];const dec=data.decision,disp=data.dispatch,src=data.source;$('mode').className='pill '+(drill?'drill':src.mode==='LIVE'?'live':'');$('mode').innerHTML=`<i class="dot"></i>${drill?'SIMULATION · '+src.mode:src.mode}`;$('fresh').textContent='Updated '+src.last_updated.split(' ')[1]+' CT';$('action').textContent=dec.action;$('action').className='action '+dec.action.toLowerCase();$('reason').textContent=dec.reason;$('target').textContent=fmt(dec.target_mw)+' MW';$('rt').textContent=`RT $${fmt(data.now.price,2)}/MWh`;$('p25').textContent=`DAM p25 $${fmt(dec.dam_p25,2)}`;$('p75').textContent=`DAM p75 $${fmt(dec.dam_p75,2)}`;$('online').textContent=Number(data.fleet.online_after).toLocaleString()+' / '+Number(data.fleet.homes).toLocaleString();$('protected').textContent=fmt(data.fleet.reserve_mwh)+' MWh';$('value').textContent='$'+fmt(data.value.gross_usd_per_h,0)+'/h';$('shortfall').textContent=fmt(disp.shortfall_mw)+' MW';$('shortfall').style.color=disp.shortfall_mw>0.001?'var(--red)':'var(--mint)';$('source').textContent=`Official ERCOT · ${src.zone} · ${src.mode} · fleet and failures are synthetic`;invariants(data.invariants);
+    if(!drill){cards(disp,3);workers(data.homes_sample,3);timeline(data.events,data.events.length);return}
+    cards(disp,1);workers(data.homes_sample,1);timeline(data.events,1);
+    timer.push(setTimeout(()=>{cards(disp,2);workers(data.homes_sample,2);timeline(data.events,3)},850));
+    timer.push(setTimeout(()=>{cards(disp,3);workers(data.homes_sample,3);timeline(data.events,data.events.length)},1850));
+  }
+  async function load(drill){busy(true);try{const homes=Math.max(10,Math.min(5000,Number($('homes').value)||1000));const reserve=Number($('reserve').value)/100;const q=new URLSearchParams({zone:'lzAen',homes,reserve,drill:drill?'1':'0',fail:drill?'0.15':'0'});const res=await fetch('/api/state?'+q);const data=await res.json();if(!res.ok)throw new Error(data.error||'Request failed');render(data,drill)}catch(e){$('reason').textContent='Unable to load fleet state: '+e.message;$('action').textContent='ERROR'}finally{busy(false)}}
+  load(false);
+</script>
+</body>
+</html>
