@@ -40,6 +40,14 @@ class DataTests(unittest.TestCase):
             _, _, meta = data.load_prices()
         self.assertEqual(meta["mode"], "CACHED")
 
+    def test_valid_feed_without_timestamp_is_explicitly_unknown(self):
+        payload = json.loads(self.fixture)
+        payload.pop("lastUpdated")
+        with patch.object(data, "urlopen", return_value=FakeResponse(json.dumps(payload).encode())):
+            _, _, meta = data.load_prices()
+        self.assertEqual(meta["mode"], "LIVE")
+        self.assertEqual(meta["last_updated"], "Unknown")
+
     def test_unknown_zone_is_rejected_before_network(self):
         with patch.object(data, "urlopen") as opener:
             with self.assertRaisesRegex(ValueError, "unsupported zone"):

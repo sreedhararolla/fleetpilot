@@ -64,6 +64,7 @@ class ApiIntegrationTests(unittest.TestCase):
         self.assertEqual(payload["mode"], "DRILL")
         self.assertEqual(payload["source"]["mode"], "CACHED")
         self.assertEqual(payload["decision"]["action"], "DISCHARGE")
+        self.assertEqual(payload["prices"], {"rt": rt, "dam": dam})
         self.assertGreater(payload["dispatch"]["failed_homes"], 0)
         self.assertEqual(payload["dispatch"]["shortfall_mw"], 0)
         self.assertTrue(all(payload["invariants"].values()))

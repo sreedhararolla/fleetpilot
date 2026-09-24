@@ -95,6 +95,10 @@ class Handler(BaseHTTPRequestHandler):
             )
             payload["mode"] = "DRILL" if inputs["drill"] else meta["mode"]
             payload["source"] = meta
+            # Echo the already-normalized public series so the UI can make the
+            # real grid input visible. Drill changes only the decision price;
+            # these series retain their LIVE/CACHED provenance.
+            payload["prices"] = {"rt": rt, "dam": dam}
             self._json(200, payload)
         except ValueError as exc:
             self._json(400, {"error": str(exc)})
@@ -123,4 +127,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
