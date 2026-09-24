@@ -1,0 +1,18 @@
+{
+  "lastUpdated": "2026-09-24 12:32:00-0500",
+  "rtSppData": [
+    {"intervalEnding":"00:15","lzAen":32.66},{"intervalEnding":"00:30","lzAen":34.08},{"intervalEnding":"00:45","lzAen":30.53},{"intervalEnding":"01:00","lzAen":28.71},
+    {"intervalEnding":"02:00","lzAen":27.19},{"intervalEnding":"03:00","lzAen":25.92},{"intervalEnding":"04:00","lzAen":25.16},{"intervalEnding":"05:00","lzAen":25.78},
+    {"intervalEnding":"06:00","lzAen":31.71},{"intervalEnding":"07:00","lzAen":36.83},{"intervalEnding":"08:00","lzAen":32.94},{"intervalEnding":"09:00","lzAen":21.16},
+    {"intervalEnding":"10:00","lzAen":19.11},{"intervalEnding":"11:00","lzAen":16.78},{"intervalEnding":"12:00","lzAen":19.56},{"intervalEnding":"12:30","lzAen":23.16}
+  ],
+  "damSppData": [
+    {"hourEnding":1,"lzAen":35.79},{"hourEnding":2,"lzAen":32.48},{"hourEnding":3,"lzAen":31.50},{"hourEnding":4,"lzAen":31.52},
+    {"hourEnding":5,"lzAen":31.90},{"hourEnding":6,"lzAen":36.09},{"hourEnding":7,"lzAen":37.07},{"hourEnding":8,"lzAen":36.78},
+    {"hourEnding":9,"lzAen":30.98},{"hourEnding":10,"lzAen":28.74},{"hourEnding":11,"lzAen":28.02},{"hourEnding":12,"lzAen":30.78},
+    {"hourEnding":13,"lzAen":33.42},{"hourEnding":14,"lzAen":40.19},{"hourEnding":15,"lzAen":46.30},{"hourEnding":16,"lzAen":49.51},
+    {"hourEnding":17,"lzAen":55.89},{"hourEnding":18,"lzAen":59.54},{"hourEnding":19,"lzAen":80.40},{"hourEnding":20,"lzAen":78.11},
+    {"hourEnding":21,"lzAen":83.42},{"hourEnding":22,"lzAen":72.61},{"hourEnding":23,"lzAen":50.22},{"hourEnding":24,"lzAen":39.34}
+  ]
+}
+
