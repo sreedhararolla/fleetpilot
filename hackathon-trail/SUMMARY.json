@@ -1,0 +1,25 @@
+{
+  "run_dir": "/home/sreered/duo-hackathon/runs/20260924-123336",
+  "minutes": 32.7,
+  "agents": {
+    "opus": {
+      "model": "claude-opus-5-5",
+      "turns": 34,
+      "tokens": {
+        "in": 15440088,
+        "out": 63910
+      },
+      "cost_usd": 5.974
+    },
+    "sol": {
+      "model": "gpt-5.6-sol",
+      "turns": 33,
+      "tokens": {
+        "in": 15884498,
+        "out": 71827
+      },
+      "cost_usd": null
+    }
+  },
+  "note": "Corrected after the run: both CLIs report cumulative session totals; the original referee double-counted. Opus cost is API-equivalent (run used subscriptions). Codex reports no cost."
+}

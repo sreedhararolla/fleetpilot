@@ -1,0 +1,72 @@
+[
+ {
+  "id": "T1",
+  "title": "fleet.py: Home dataclass + seeded heterogeneous fleet (cap 30-48 kWh, 11.5 kW, SOC, reserve floor)",
+  "owner": "opus",
+  "status": "done",
+  "notes": "fleetpilot/fleet.py"
+ },
+ {
+  "id": "T2",
+  "title": "engine.py: decide (RT vs DAM p25/p75) + allocate by headroom + fail + redispatch + payload",
+  "owner": "opus",
+  "status": "done",
+  "notes": "interface in PLAN.md; stdlib only"
+ },
+ {
+  "id": "T3",
+  "title": "tests/test_engine.py: invariants (floor, power, failed=0, target met when capacity, shortfall honest, HOLD=0)",
+  "owner": "opus",
+  "status": "done",
+  "notes": "14 tests pass: python3 -m unittest discover -s tests"
+ },
+ {
+  "id": "T4",
+  "title": "PITCH.md one page",
+  "owner": "opus",
+  "status": "done",
+  "notes": "named user = Base fleet-ops; problem; value"
+ },
+ {
+  "id": "T5",
+  "title": "Integration smoke: run app with timeout, curl /api/state live+drill, fix engine side",
+  "owner": "opus",
+  "status": "done",
+  "notes": "LIVE + DRILL + shortfall + 400 verified against real ERCOT; 21 tests pass; UI fields all present"
+ },
+ {
+  "id": "T6",
+  "title": "data.py: load_prices(zone) -> (rt, dam, meta), 5s timeout, validated fixture fallback",
+  "owner": "sol",
+  "status": "done",
+  "notes": "fleetpilot/data.py + data/fixture_prices.json; save live response; filter null/non-numeric points; preserve source timestamp"
+ },
+ {
+  "id": "T7",
+  "title": "tests/test_data.py: fixture parsing, zone validation, malformed/live network fallback -> CACHED",
+  "owner": "sol",
+  "status": "done",
+  "notes": "unittest; mock urlopen; no network dependency"
+ },
+ {
+  "id": "T8",
+  "title": "app.py: stdlib server, / and /api/state, 60s cache, DRILL mode, bounded query parsing",
+  "owner": "sol",
+  "status": "done",
+  "notes": "port 8000; initial fail=0, drill fail=.15; clear JSON errors; no-store API responses"
+ },
+ {
+  "id": "T9",
+  "title": "web/index.html: interactive control room and deterministic staged drill",
+  "owner": "sol",
+  "status": "done",
+  "notes": "no CDN; prioritize badge, decision, controls, drill, 60 worker cells, event log, invariants; SVG price sparkline is cuttable"
+ },
+ {
+  "id": "T10",
+  "title": "README.md + DEMO.md",
+  "owner": "sol",
+  "status": "done",
+  "notes": "one command, tests, LIVE/CACHED/DRILL provenance, synthetic-fleet disclaimer, 3-minute script"
+ }
+]

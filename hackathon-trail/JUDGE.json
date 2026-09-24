@@ -1,0 +1,50 @@
+{
+  "track": "Orchestration",
+  "criteria": [
+    {
+      "name": "Track fit & prize odds",
+      "score": 7.5,
+      "justification": "Clearly targets constrained fleet coordination, with a compelling failure-and-recovery demonstration. Strong host-specific presentation, but the orchestration is a synchronous simulation rather than independently running workers, limiting its technical distinction."
+    },
+    {
+      "name": "Relevance to Base Power",
+      "score": 9,
+      "justification": "Directly addresses VPP dispatch, unavailable devices, customer backup reserves, and market opportunity. The reserve tradeoff is concrete and reproducible, although no actual telemetry or device integration is demonstrated."
+    },
+    {
+      "name": "Technical depth",
+      "score": 5.5,
+      "justification": "Proportional allocation and redistribution correctly enforce the modeled energy and power constraints. Cached values matched corresponding entries in the official [ERCOT feed](https://www.ercot.com/api/1/services/read/dashboards/system-wide-prices.json). However, every request regenerates the fleet; there is no evolving state, asynchronous failure detection, acknowledgment handling, or optimization across time. The parser also accepted a stale, incomplete feed with an invalid interval string."
+    },
+    {
+      "name": "It actually works",
+      "score": 9,
+      "justification": "Started successfully using python3 app.py without application dependencies; all 27 tests passed. Browser walkthrough completed without JavaScript errors in live and forced-offline cached modes. Verified 7.489 → 6.362 → 7.489 MW recovery, the 50% reserve scenario, 5,000 homes, invalid-input rejection, and a truthful 2.104 MW shortfall under 50% failure. Servers were stopped afterward."
+    },
+    {
+      "name": "Commercial clarity",
+      "score": 6,
+      "justification": "Names fleet operators and dispatch engineers, identifies a credible operational problem, and illustrates gross opportunity value. It does not establish a differentiated buying proposition, customer validation, pricing, or measured improvement over an existing dispatch approach. Synthetic scarcity revenue is not demonstrated commercial return."
+    },
+    {
+      "name": "Demo & pitch quality",
+      "score": 8,
+      "justification": "Polished dashboard, coherent three-minute script, clear simulation labels, and reproducible headline numbers. The 50% reserve example honestly exposes 252 homes already below the requested floor. Claims about proving the difficult coordination loop and simply swapping in production telemetry overstate the demonstrated integration readiness; cached timestamps also omit the date in the UI."
+    }
+  ],
+  "overall": 7.5,
+  "summary": "A polished, reliable, highly relevant hackathon prototype. Strong demonstration and constraint handling make it competitive, but modest coordination depth and unvalidated commercial differentiation keep it below a clear winner.",
+  "strengths": [
+    "One-command startup, no application dependencies, and 27 passing tests.",
+    "Verified browser demo works with live data and offline fallback.",
+    "Recovery and capacity shortfalls behave correctly in tested scenarios.",
+    "Clear backup-reserve tradeoff with honest reporting of existing deficits."
+  ],
+  "weaknesses": [
+    "Independent workers and failure detection are simulated inside one synchronous calculation.",
+    "No persistent fleet evolution or dispatch optimization across intervals.",
+    "Feed validation does not establish freshness, complete coverage, or valid interval timestamps.",
+    "Commercial value lacks customer validation and comparative evidence."
+  ],
+  "demo_ran": true
+}
