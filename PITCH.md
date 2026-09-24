@@ -23,7 +23,8 @@ disappears during an evening price spike, every MW that isn't re-dispatched is r
 
 ## Demo in one line
 Live ERCOT prices → scarcity drill → 1,000 homes discharge 7.5 MW → 150 go dark (−1.1 MW) → 850 pick it up →
-target met, all invariants green. Then raise the reserve to 50% and watch the target shrink and the "cost of backup" in $/h appear.
+target met, all invariants green. Then raise the reserve to 50%: protected MWh rise and the target shrinks. The API also
+prices the tradeoff as `reserve_cost_usd_per_h` (≈ $1.4k/h at 20% reserve in the drill).
 
 ## Why it matters to Base
 - It is the dispatch desk's core loop, made explicit, testable and explainable to an operator.
