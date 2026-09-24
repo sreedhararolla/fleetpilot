@@ -46,12 +46,14 @@ the stable drill result is approximately **7.49 → 6.36 → 7.49 MW**, with 150
 
 ### 2:15–2:40 — Resilience tradeoff
 
-Before changing the control, point out the 20% case: about 7.8 MWh protected and $1.4k/h shown as the cost of backup
-reserve. Move the backup floor to 50%, click **Run outage drill**, then point to about 19.4 MWh protected, a target reduced
-from roughly 7.5 to 3.9 MW, and about $10.4k/h in reserve opportunity cost.
+Before changing the control, point out the 20% case: about 7.8 MWh actually held for backup and $1.4k/h shown as the cost
+of reserve. Move the backup floor to 50%, click **Run outage drill**, then point to about 18.7 MWh actually protected, a
+target reduced from roughly 7.5 to 3.9 MW, and about $10.4k/h in gross reserve opportunity cost. The screen also flags
+that 252 synthetic homes already sit below the newly requested floor, representing a 0.8 MWh pre-existing gap.
 
-“The same operator can protect more energy for customers. Here that trades away about 3.6 MW of dispatch opportunity,
-but the backup promise wins. The constraint and its dollar cost are visible and auditable.”
+“The same operator can reserve more energy for customers. Here that trades away about 3.6 MW of dispatch opportunity.
+FleetPilot distinguishes energy actually held from the requested policy and surfaces the pre-existing gap rather than
+pretending it is protected. The constraint and its gross opportunity cost are visible and auditable.”
 
 ### 2:40–3:00 — Close
 

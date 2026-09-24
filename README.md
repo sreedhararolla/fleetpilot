@@ -14,7 +14,7 @@ python3 app.py
 
 Open [http://localhost:8000](http://localhost:8000). Use `python3 app.py --port 8080` to select another port.
 
-The initial screen is the current fleet decision with no simulated failures. Click **Run outage drill** to replay allocation → 15% active-home outage → re-dispatch. Change the fleet size or customer backup floor and click **Apply**.
+The initial screen shows today's official RT-versus-DAM price chart and the current fleet decision with no simulated failures. Click **Run outage drill** to replay allocation → 15% active-home outage → re-dispatch. Change the fleet size or customer backup floor and click **Apply**.
 
 ## Test
 
