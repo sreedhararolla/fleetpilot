@@ -17,7 +17,7 @@ Point to the title and source badge. “FleetPilot is that control loop in minia
 
 ### 0:25–0:55 — Real grid input
 
-Point to the LIVE/CACHED badge, update time, real-time price, DAM thresholds, and the new full-day RT-versus-DAM chart.
+Point to the LIVE/CACHED badge, update time, real-time price, DAM thresholds, and the full-day RT-versus-DAM chart.
 
 “This is official ERCOT `LZ_AEN` data. We compare the latest real-time price with today's day-ahead quartiles to produce a transparent charge, hold, or discharge target. If the network fails, we use a timestamped committed ERCOT snapshot and say so.”
 
@@ -58,6 +58,19 @@ pretending it is protected. The constraint and its gross opportunity cost are vi
 ### 2:40–3:00 — Close
 
 “FleetPilot is not pretending to be Base's production optimizer. It proves the difficult coordination loop: real market signal in, thousands of constrained devices, failure, recovery, and truthful delivery out. That is what makes a distributed fleet behave like a dependable power plant.”
+
+**Why it matters to Base Power:** “This is your dispatch desk's loop. Swap our synthetic fleet for your telemetry and our
+quartile rule for your bid schedule, and the allocation, re-dispatch, and invariant checks carry over. It also answers
+the question your ops and product teams share: what does each extra point of customer backup cost us per hour?”
+
+## Likely judge questions
+
+- **“Is the orchestration real or one function?”** Each home is an independently constrained worker (energy, power,
+  floor). The coordinator allocates, detects the failed set, and re-dispatches only into remaining headroom. It's
+  deterministic so the invariants are provable. In production, the same loop runs every dispatch interval.
+- **“Why quartiles, not an optimizer?”** It's transparent and testable in a demo. The coordinator doesn't depend on how
+  the target is chosen.
+- **“Is the $ real?”** The prices are real ERCOT. The drill price and the fleet are synthetic, and the value is gross opportunity, not settled profit.
 
 ## Fallbacks
 
